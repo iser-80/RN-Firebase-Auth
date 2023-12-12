@@ -2,7 +2,6 @@ import { View, Text, Image, TextInput, TouchableOpacity, Touchable, TouchableWit
 import React, { useEffect, useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import { auth, signIn } from '../../firebase'
-import { getAuth } from 'firebase/auth'
 
 
 export default function Login({ navigation }) {
@@ -10,14 +9,16 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState('')
 
   useEffect(() => {
-    const test = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate('Welcome')
-      }
-    })
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+        if (user) {
+           console.log('the user is : ', user.email, ' and auth : ', auth.currentUser)
+            navigation.navigate('Welcome');
+        }
+    });
 
-    return test
-  })
+    return () => unsubscribe(); // Unsubscribe when the component is unmounted
+}, []); // Empty dependency array ensures the effect runs only once when the component mounts
+
 
   const handleLogin = () => {
     try {

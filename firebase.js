@@ -32,7 +32,7 @@ const firebaseConfig = {
 
   export const signOut = async () => {
     try {
-      await signOut()
+      await auth.signOut().then(() => console.log('user sign out', auth))
     } catch (error) {
       console.error('sign out failed : ', error)
     }
