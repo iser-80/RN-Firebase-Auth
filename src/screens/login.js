@@ -12,7 +12,7 @@ export default function Login({ navigation }) {
     const unsubscribe = auth.onAuthStateChanged((user) => {
         if (user) {
            console.log('the user is : ', user.email, ' and auth : ', auth.currentUser)
-            navigation.navigate('Welcome');
+            navigation.navigate('Home');
         }
     });
 
