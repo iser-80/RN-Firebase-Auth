@@ -1,8 +1,34 @@
 import { View, Text, Image, TextInput, TouchableOpacity, Touchable, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
+import { auth, signIn } from '../../firebase'
+import { getAuth } from 'firebase/auth'
+
 
 export default function Login({ navigation }) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  useEffect(() => {
+    const test = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate('Welcome')
+      }
+    })
+
+    return test
+  })
+
+  const handleLogin = () => {
+    try {
+      signIn(email, password)
+      setEmail('')
+      setPassword('')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View className=" flex-1 relative items-center">
@@ -15,13 +41,17 @@ export default function Login({ navigation }) {
             <TextInput
               className=' w-full text-lg text-white'
               placeholder='Email ..'
+              onChangeText={(val) => setEmail(val)}
+              value={email}
             />
           </View>
           <TextInput
             className='py-4 px-5 mt-2 w-full text-lg text-white border border-white rounded-3xl'
             placeholder='Password ..'
+            onChangeText={(val) => setPassword(val)}
+            value={password}
           />
-          <TouchableOpacity className='py-4 px-5 mt-4 bg-white w-full text-white rounded-3xl items-center'>
+          <TouchableOpacity onPress={handleLogin} className='py-4 px-5 mt-4 bg-white w-full text-white rounded-3xl items-center'>
             <Text className='text-2xl text-blue-500' style={{fontFamily: 'kalnia-semiBold'}}>Login</Text>
           </TouchableOpacity>
           <View className='flex flex-row mt-3 items-center'>  

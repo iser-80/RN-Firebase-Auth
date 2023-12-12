@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, TouchableOpacity, Touchable, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity, Touchable, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import { signUp } from '../../firebase'
@@ -6,6 +6,16 @@ import { signUp } from '../../firebase'
 export default function Register({ navigation }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const handleRegister = () => {
+    try {
+      signUp(email, password)
+      setEmail('')
+      setPassword('')
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -29,7 +39,7 @@ export default function Register({ navigation }) {
             onChangeText={(val) => setPassword(val)}
             value={password}
           />
-          <TouchableOpacity onPress={() => signUp(email, password)} className='py-4 px-5 mt-4 bg-white w-full text-white rounded-3xl items-center'>
+          <TouchableOpacity onPress={handleRegister} className='py-4 px-5 mt-4 bg-white w-full text-white rounded-3xl items-center'>
             <Text className='text-2xl text-blue-500' style={{fontFamily: 'kalnia-semiBold'}}>Register</Text>
           </TouchableOpacity>
           <View className='flex flex-row mt-3 items-center'>  

@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowSmallRightIcon } from "react-native-heroicons/mini";
 import React from 'react'
+import { signOut } from '../../firebase';
 
 
 export default function Welcome({ navigation }) {
@@ -15,6 +16,9 @@ export default function Welcome({ navigation }) {
         <TouchableOpacity onPress={() => navigation.navigate('Login')} className="flex flex-row rounded-xl shadow-md shadow-black/20 items-center justify-around mt-12 py-3 px-4 bg-blue-500">
           <Text className="text-xl text-white" style={{fontFamily: 'poppins-semiBold'}}>Get Started</Text>
           <ArrowSmallRightIcon size={35} color='white'/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={signOut}>
+          <Text>Log out</Text>
         </TouchableOpacity>
       </View>
       <Image className="absolute h-[50%] w-full bottom-0" source={require('../../assets/images/welcome.png')} />
