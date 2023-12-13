@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, TouchableOpacity, Touchable, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity, Touchable, TouchableWithoutFeedback, Keyboard, Alert, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import { signUp } from '../../firebase'
@@ -19,9 +19,14 @@ export default function Register({ navigation }) {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 100}
+        className='flex-1'
+      >
       <View className=" flex-1 relative items-center">
         <LinearGradient className='w-full h-full absolute'colors={['#fd746c', '#ff9068']} />
-        <Text className='text-4xl mt-20 text-white' style={{fontFamily: 'kalnia-semiBold'}} >Welcome Back!</Text>
+        <Text className='text-4xl mt-10 text-white' style={{fontFamily: 'kalnia-semiBold'}} >Welcome Back!</Text>
         <Image className='w-[100%] h-[45%]' source={require('../../assets/images/login.png')} />
         <View className='flex mt-2 p-5 w-full items-center'>  
           <Text className='text-3xl text-white' style={{fontFamily: 'kalnia-semiBold'}} >Please Sign Up!</Text>
@@ -50,6 +55,7 @@ export default function Register({ navigation }) {
           </View>
         </View>
       </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   )
 }

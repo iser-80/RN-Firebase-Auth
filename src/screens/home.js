@@ -34,7 +34,7 @@ export default function Home({ navigation }) {
             <View className='w-full h-1/2 items-center'>
                 <Image className='h-[70%] w-full mt-20' source={require('../../assets/images/congratulation.png')} />
                 <Text className='text-4xl text-white mt-2' style={{fontFamily: 'kalnia-semiBold'}}>Congratulation</Text>
-                {user && <Text className='text-xl text-gray-50 mt-4 px-20 text-center' style={{fontFamily: 'poppins-semiBold'}}>{user.email}</Text>}
+                {user && <Text className='text-xl text-gray-50 mt-4 px-20 text-center' style={{fontFamily: 'poppins-semiBold'}}>{user.email}</Text> }
                 <Text className='text-md text-gray-50 mt-2 px-20 text-center' style={{fontFamily: 'poppins'}}>You Just Sign Up ! Welcome To Our Community Now, Everything You Need Now Come To Us</Text>
             </View>
             <TouchableOpacity onPress={handleSignOut} className='py-4 px-5 bg-white w-[90%] text-white rounded-3xl items-center'>
